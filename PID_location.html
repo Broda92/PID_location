@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>Poloha vozidel PID</title>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+   crossorigin=""></script>
+   <script type="text/javascript">
+
+   	function include(file) {
+   		var script = document.createElement('script');
+   		script.src = file;
+   		script.type = 'text/javascript';
+   		script.defer = true;
+   		document.head.appendChild(script);
+   	}
+   	include('PID_location.js');
+   	include('PID_vehicles.js');
+   	include('PID_stops.js');
+   	include('PID_zones.js');
+   	include('PID_routes.js');
+   	include('PID_list.js');
+   	include('PID_filter.js');
+   	include('PID_schedules.js');
+
+   </script>
+</head>
+
+<body>
+	<div id="map" style="width:calc(100% - 300px); height:700px;"></div>
+	<p id="tiraz"><b>Autor: Jan BRODSKÝ, Brno 2020. Optimalizováno pro prohlížeč Mozilla Firefox verze 77.x</b></p>
+	
+</body>
+</html>
+
+<!--
+	X upravit formátování popisků vozidel - aktuální zastávka? (id - OPRAVIT na názvy!) + zpoždění? (ms - OPRAVIT na minuty!)
+	X opravit zastávky
+	opravit změny polohy - přesun pouze po aktualizaci polohy (odstranit blikání na místě!) > rychlá náhrada vozidel individuálně podle ID (regio) nebo podle trip_ID (DPP); >> updatedSince
+	X vložit trasy linek (vozidla + zastávky)
+	GUI + napojení filtru + seřazení seznamu vozidel - 2 slidy (filtr + seznam) + CSS
+	X šipky podle směru?
+	X přepínače vrstev
+	X JŘ?
+-->
