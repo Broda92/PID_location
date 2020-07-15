@@ -15,14 +15,19 @@ function get_data_zones(){
 	request3.send();
 
 	setTimeout(function(){
-		var prague = zones['features'][0];
-		var zones_from_prague = zones['features'].reverse();
-		zones_from_prague.pop();
-		zones_from_prague.splice(0, 0, prague);		
+		if (zones) {
+			var prague = zones['features'][0];
+			var zones_from_prague = zones['features'].reverse();
+			zones_from_prague.pop();
+			zones_from_prague.splice(0, 0, prague);		
 
-		for (p in zones['features']) {
-			show_zones(p, zones);	
+			for (p in zones['features']) {
+				show_zones(p, zones);	
+			}
+		} else {
+			alert("Data o tarifních pásmech se nepodařilo nahrát!");
 		}
+		
 	}, 1000);
 }
 
@@ -47,7 +52,7 @@ function show_zones(p, zones) {
 		  ]
 		];
 
-	var polygon = L.polygon(latlngs, {color: zones_colors[p], weight: 0.3}).addTo(map)
+	var polygon = L.polygon(latlngs, {color: zones_colors[p], weight: 0.5}).addTo(map)
 		.bindPopup("<b>Tarifní pásmo "+zones['features'][p]['properties']['POPIS']+"</b>");
 }
 

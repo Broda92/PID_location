@@ -1,4 +1,5 @@
 var data;
+var vehicles_all;
 //var stops_names = get_data_stops();
 
 function setting_range_vehicles(range) {		
@@ -17,23 +18,27 @@ function get_data_vehicles(range){
 	var request = new XMLHttpRequest();
 
 	//request.open('GET', 'https://api.golemio.cz/v2/vehiclepositions');	
-	request.open('GET', link);
+	//request.open('GET', link);
 	//request.open('GET', 'https://api.golemio.cz/v2/vehiclepositions/?latlng=50.11548,14.437327&range=300');
-	//request.open('GET','Data/PID_poloha_vozidel.json');
+	request.open('GET','Data/PID_poloha_vozidel.json');
 
 	request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 	request.setRequestHeader('x-access-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJyb2Rza3kuamFuQHNlem5hbS5jeiIsImlkIjozMTEsIm5hbWUiOm51bGwsInN1cm5hbWUiOm51bGwsImlhdCI6MTU5MjY1MjI5NSwiZXhwIjoxMTU5MjY1MjI5NSwiaXNzIjoiZ29sZW1pbyIsImp0aSI6Ijc4NDM5NzFiLTc4MDctNDVhNy04ZjY2LTVmNjE5Nzk1ZmU5ZCJ9.XKzc8UYMiiwRgkk0iootvnBb66wyVUAzupgapKCXxMg');
 
 	request.onreadystatechange = function () {
 	  if (this.readyState === 4) {
-	    data = JSON.parse(this.responseText);
-	    
-
+	    data = JSON.parse(this.responseText);	  
 	  }
 	};
 	request.send();
+	
 	setTimeout(function(){
-		filter_vehicles(data);
+		if (data) {
+			data = data['features'];
+		} else {
+			alert("Data o poloze vozidel se nepodařilo nahrát. Aktualizujte stránku!");
+		}
+		filter_vehicles(data, lf_boolean);
 	}, 2000)		
 }	
 
@@ -53,14 +58,18 @@ function show_vehicles(map, extent, vehicles_map) {
 	var delay;
 	var stop_current;
 	var vehicles = [];
+	if (vehicles_all) {
+		vehicles_all.clearLayers();
+	}
+	//vehicles_all.clearLayers();
 
 	for (v in vehicles_map) {
 		line = vehicles_map[v]['properties']['trip']['gtfs']['route_short_name'];
 		destination = vehicles_map[v]['properties']['trip']['gtfs']['trip_headsign'];
 		connection_number = vehicles_map[v]['properties']['trip']['cis']['trip_number'];
-		//stop_current = vehicles_map[v]['properties']['last_position']['last_stop']['id'];
+		stop_current = vehicles_map[v]['properties']['last_position']['last_stop']['id'];
 		//stop_current_name = get data from /Data/PID_GTFS/stops.txt
-		//delay = Math.round(((vehicles_map[v]['properties']['last_position']['delay']['actual'])/1000)/60);
+		delay = Math.round(((vehicles_map[v]['properties']['last_position']['delay']['actual'])/1000)/60);
 		type = vehicles_map[v]['properties']['trip']['vehicle_type']['description_cs'];
 		number = vehicles_map[v]['properties']['trip']['vehicle_registration_number'];
 		connection = vehicles_map[v]['properties']['trip']['gtfs']['trip_id'];
@@ -139,25 +148,32 @@ function show_vehicles(map, extent, vehicles_map) {
 		    })
 		}
 		info = ("<b>"+line+" > "+destination+"</b><br>"+type+"<br><a href='https://seznam-autobusu.cz/seznam?evc="+number+"&operator="+operator_sa+"'>#"
-			+number+"</a> spoj: "+connection_number/*+"<br>Zpoždění: "+delay+" min<br>Zastávka (ID): "+stop_current*/
+			+number+"</a> spoj: "+connection_number+"<br>Zpoždění: "+delay+" min<br>Zastávka (ID): "+stop_current
 			+"<br>dopravce: "+operator+"<br>nízkopodlažní? "+lf).toString();	
 
-		var vehicle = new L.marker([position_lat, position_lng], {icon: icon}).addTo(map)
-		    .bindPopup(info);
-			//.on('popupopen',get_data_route(line));
+		customMarker = L.Marker.extend({
+		    	options: {
+		    		vehicle_number: number
+		    	}
+		    });
+
+		var vehicle = new customMarker([position_lat, position_lng], {icon: icon, vehicle_number: number});
+		    vehicle.addTo(map)
+		    vehicle.bindPopup(info)
+		    
+			//.on('popupopen', get_data_route(line));
 
 		vehicles.push(vehicle);
 	}		
-	var vehicles_all = L.layerGroup(vehicles).addTo(map);
+	vehicles_all = L.layerGroup(vehicles).addTo(map);
 
 	//opakování
-	/*if (limit < 50) {
+	if (limit < 5) {
 		setTimeout(function(){
-			vehicles_all.clearLayers();
 			limit++;
 			get_data_vehicles();
 		}, 5000);
 	} else {
 		alert('Dosažen limit '+limit+' opakování dotazu!');
-	}*/
+	}
 }	

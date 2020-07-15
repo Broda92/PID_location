@@ -1,6 +1,6 @@
 var routes;
 
-function get_data_routes(line){
+function get_data_route(line){
 	var request4 = new XMLHttpRequest();
 	request4.open('GET','Data/DOP_PID_routes_L.json');
 	request4.setRequestHeader('Content-Type', 'application/json; charset=utf-8');

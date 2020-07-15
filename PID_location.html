@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
    crossorigin=""/>
+   <link rel="stylesheet" type="text/css" href="PID_location.css">
    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
    crossorigin=""></script>
@@ -32,19 +33,43 @@
 </head>
 
 <body>
-	<div id="map" style="width:calc(100% - 300px); height:700px;"></div>
-	<p id="tiraz"><b>Autor: Jan BRODSKÝ, Brno 2020. Optimalizováno pro prohlížeč Mozilla Firefox verze 77.x</b></p>
+	<div id="map"></div>
+	<div id="headline_div">
+		<p id="headline">Poloha vozidel<br>Pražské integrované dopravy</p>
+	</div>
+	<div id="settings">
+		<div id="search field">
+			<input type="text" id="search_text" name="search_text" placeholder="Evidenční číslo vozu">
+			<input type="button" id="search_button" name="search_button" value="Hledat" onclick="find_vehicle()">
+		</div>
+		<div class="filter_checkbox" id="tram_button" onclick="filter_type_button('tram')" tabindex="1">Tramvaje</div><div class="filter_amount" id="tram_amount" tabindex="1">-</div>
+		<div class="filter_checkbox" id="tbus_button" onclick="filter_type_button('tbus')" tabindex="2">Trolejbusy</div><div class="filter_amount" id="tbus_amount" tabindex="2">-</div>
+		<div class="filter_checkbox" id="bus_button" onclick="filter_type_button('bus')" tabindex="3">Autobusy</div><div class="filter_amount" id="bus_amount" tabindex="3">-</div>
+		<div class="filter_checkbox" id="busreg_button" onclick="filter_type_button('busreg')" tabindex="4">Autobusy regionální</div><div class="filter_amount" id="busreg_amount" tabindex="4">-</div>
+		<div class="filter_checkbox" id="train_button" onclick="filter_type_button('train')" tabindex="5">Vlaky</div><div class="filter_amount" id="train_amount" tabindex="5">-</div>
+		<div class="filter_checkbox" id="boat_button" onclick="filter_type_button('boat')" tabindex="6">Přívozy</div><div class="filter_amount" id="boat_amount" tabindex="6">-</div>
+		<div class="filter_checkbox" id="other_button" onclick="filter_type_button('other')" tabindex="7">Ostatní</div><div class="filter_amount" id="other_amount" tabindex="7">-</div>
+
+		<div class="filter_checkbox_wide" id="lf_button" onclick="filter_lf_button()" tabindex="8">Pouze nízkopodlažní vozy</div>
+		<div class="filter_checkbox_wide" id="line_button" onclick="filter_line_button()" tabindex="9">Výběr podle linek</div>
+
+		<div class="filter_checkbox_line" id="line_list"></div>
+		<div id="list"></div>
+	</div>
+
+	<p id="author"><b>Autor: Jan BRODSKÝ, Brno 2020. Zdroj dat: <a href="http://opendata.praha.eu/">Opendata hlavního města Prahy</a>. Optimalizováno pro prohlížeč Mozilla Firefox verze 77.x</b></p>
 	
 </body>
 </html>
 
 <!--
-	X upravit formátování popisků vozidel - aktuální zastávka? (id - OPRAVIT na názvy!) + zpoždění? (ms - OPRAVIT na minuty!)
-	X opravit zastávky
-	opravit změny polohy - přesun pouze po aktualizaci polohy (odstranit blikání na místě!) > rychlá náhrada vozidel individuálně podle ID (regio) nebo podle trip_ID (DPP); >> updatedSince
+	> upravit formátování popisků vozidel - aktuální zastávka? (id - OPRAVIT na názvy!) + zpoždění? (ms - OPRAVIT na minuty!)
+	opravit zastávky
 	X vložit trasy linek (vozidla + zastávky)
-	GUI + napojení filtru + seřazení seznamu vozidel - 2 slidy (filtr + seznam) + CSS
+	> seřazení seznamu vozidel
 	X šipky podle směru?
-	X přepínače vrstev
-	X JŘ?
+	> přepínače vrstev - vypnutí pásem
+	JŘ?
+	> Přidat zoom na všechna vybraná vozidla
+	X Filtr vozidel podle vyhledávání?
 -->
