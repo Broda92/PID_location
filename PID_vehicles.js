@@ -64,12 +64,13 @@ function show_vehicles(map, extent, vehicles_map) {
 	//vehicles_all.clearLayers();
 
 	for (v in vehicles_map) {
+
 		line = vehicles_map[v]['properties']['trip']['gtfs']['route_short_name'];
 		destination = vehicles_map[v]['properties']['trip']['gtfs']['trip_headsign'];
 		connection_number = vehicles_map[v]['properties']['trip']['cis']['trip_number'];
 		stop_current = vehicles_map[v]['properties']['last_position']['last_stop']['id'];
 		//stop_current_name = get data from /Data/PID_GTFS/stops.txt
-		delay = Math.round(((vehicles_map[v]['properties']['last_position']['delay']['actual'])/1000)/60);
+		delay = Math.round((vehicles_map[v]['properties']['last_position']['delay']['actual'])/60);
 		type = vehicles_map[v]['properties']['trip']['vehicle_type']['description_cs'];
 		number = vehicles_map[v]['properties']['trip']['vehicle_registration_number'];
 		connection = vehicles_map[v]['properties']['trip']['gtfs']['trip_id'];
