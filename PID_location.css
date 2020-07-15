@@ -115,8 +115,9 @@ a {
 
 #line_list {
 	margin-top: 10px;
-	height: calc(20%);
+	height: calc(30%);
 	width: 100%;
+	overflow: auto;
 }
 
 .filter_line_button {
@@ -149,6 +150,7 @@ a {
 	height: calc(35%);
 	width: 100%;
 	background-color: darkgrey;
+	overflow: auto;
 }
 
 #zoom_button {
