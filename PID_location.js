@@ -25,8 +25,10 @@ coordCenterLat = map.getCenter()['lat'];
 coordCenterLng = map.getCenter()['lng'];
 
 var limit = 0;
+var stops_names;
 
 setTimeout(function(){
+	stops_names = get_stop_names();
 	get_data_vehicles();
 	get_data_zones();
 	}, 500)

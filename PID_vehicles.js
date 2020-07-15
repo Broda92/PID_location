@@ -1,6 +1,5 @@
 var data;
 var vehicles_all;
-//var stops_names = get_data_stops();
 
 function setting_range_vehicles(range) {		
 		var NW = L.latLng(map.getBounds().getNorthWest());
@@ -38,9 +37,27 @@ function get_data_vehicles(range){
 		} else {
 			alert("Data o poloze vozidel se nepodařilo nahrát. Aktualizujte stránku!");
 		}
+
 		filter_vehicles(data, lf_boolean);
 	}, 2000)		
 }	
+
+function get_stop_names() {
+	var request = new XMLHttpRequest();
+
+	request.open('GET', "Data/PID_GTFS/PID_Stops.json");
+
+	request.onreadystatechange = function () {
+		if (this.readyState === 4) {
+		    stops_names = JSON.parse(this.responseText);	
+		    stops_names = stops_names['stops'];
+		    setTimeout(function(){
+				return stops_names;
+			}, 750)
+		  }
+		};
+	request.send();
+}
 
 function show_vehicles(map, extent, vehicles_map) {		
 		
@@ -57,11 +74,11 @@ function show_vehicles(map, extent, vehicles_map) {
 	var marker;
 	var delay;
 	var stop_current;
+	var stop_current_name;
 	var vehicles = [];
 	if (vehicles_all) {
 		vehicles_all.clearLayers();
-	}
-	//vehicles_all.clearLayers();
+	}	
 
 	for (v in vehicles_map) {
 
@@ -69,7 +86,11 @@ function show_vehicles(map, extent, vehicles_map) {
 		destination = vehicles_map[v]['properties']['trip']['gtfs']['trip_headsign'];
 		connection_number = vehicles_map[v]['properties']['trip']['cis']['trip_number'];
 		stop_current = vehicles_map[v]['properties']['last_position']['last_stop']['id'];
-		//stop_current_name = get data from /Data/PID_GTFS/stops.txt
+		for (s in stops_names) {
+			if (stops_names[s]['stop_id'] == stop_current) {
+				stop_current_name = stops_names[s]['stop_name'];
+			}
+		}				
 		delay = Math.round((vehicles_map[v]['properties']['last_position']['delay']['actual'])/60);
 		type = vehicles_map[v]['properties']['trip']['vehicle_type']['description_cs'];
 		number = vehicles_map[v]['properties']['trip']['vehicle_registration_number'];
@@ -149,7 +170,7 @@ function show_vehicles(map, extent, vehicles_map) {
 		    })
 		}
 		info = ("<b>"+line+" > "+destination+"</b><br>"+type+"<br><a href='https://seznam-autobusu.cz/seznam?evc="+number+"&operator="+operator_sa+"'>#"
-			+number+"</a> spoj: "+connection_number+"<br>Zpoždění: "+delay+" min<br>Zastávka (ID): "+stop_current
+			+number+"</a> spoj: "+connection_number+"<br>Zpoždění: "+delay+" min<br>Aktuální zastávka: "+stop_current_name
 			+"<br>dopravce: "+operator+"<br>nízkopodlažní? "+lf).toString();	
 
 		customMarker = L.Marker.extend({
@@ -168,7 +189,7 @@ function show_vehicles(map, extent, vehicles_map) {
 	}		
 	vehicles_all = L.layerGroup(vehicles).addTo(map);
 
-	//opakování
+	//repeat request
 	if (limit < 5) {
 		setTimeout(function(){
 			limit++;
