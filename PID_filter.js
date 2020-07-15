@@ -196,3 +196,9 @@ function find_vehicle() {
 		}
 	}
 }
+
+function zoom_all_vehicles(vehicles_all) {
+	console.log(vehicles_all.getLayers());
+	var v_map = new L.featureGroup(vehicles_all.getLayers());
+	map.fitBounds(v_map.getBounds());
+}
