@@ -160,3 +160,126 @@ a {
   font-size: 10px;
   background-color: white;
 }
+
+.list_table_no_vehicles {
+	text-align: center;
+	font-weight: bold;
+	font-family: Arial;
+	font-size: 10px;
+}
+
+.list_table_number {
+	text-align: center;
+	font-weight: bold;
+	font-family: Arial;
+	font-size: 10px;
+}
+.list_table_lf {
+	text-align: center;
+	font-family: Arial;
+	font-size: 10px;
+}
+
+.list_table_destination {
+	text-align: left;
+	font-family: Arial;
+	font-size: 10px;
+}
+.list_table_delay {
+	text-align: center;
+	font-family: Arial;
+	font-size: 8px;
+}
+
+.tram_table_line {
+	font-family: Arial;
+	font-size: 10px;
+	color:white;
+	background-color: red;
+	width:25px;
+	font-weight:bold;
+	vertical-align:baseline;
+	text-align:center;
+	vertical-align: middle;
+}
+.tbus_table_line {
+	font-family: Arial;
+	font-size: 10px;
+	color:white;
+	background-color: darkgreen;
+	width:25px;
+	font-weight:bold;
+	vertical-align:baseline;
+	text-align:center;
+	vertical-align: middle;
+}
+.bus_table_line {
+	font-family: Arial;
+	font-size: 10px;
+	color:white;
+	background-color: DodgerBlue;
+	width:25px;
+	font-weight:bold;
+	vertical-align:baseline;
+	text-align:center;
+	vertical-align: middle;
+}
+.busreg_table_line {
+	font-family: Arial;
+	font-size: 10px;
+	color:white;
+	background-color: seagreen;
+	width:25px;
+	font-weight:bold;
+	vertical-align:baseline;
+	text-align:center;
+	vertical-align: middle;
+}
+.boat_table_line {
+	font-family: Arial;
+	font-size: 10px;
+	color:white;
+	background-color: #000080;
+	width:25px;
+	font-weight:bold;
+	vertical-align:baseline;
+	text-align:center;
+	vertical-align: middle;
+}
+.train_table_line {
+	font-family: Arial;
+	font-size: 10px;
+	color:white;
+	background-color: saddlebrown;
+	width:25px;
+	font-weight:bold;
+	vertical-align:baseline;
+	text-align:center;
+	vertical-align: middle;
+}
+.other_table_line {
+	font-family: Arial;
+	font-size: 10px;
+	color:white;
+	background-color: darkred;
+	width:25px;
+	font-weight:bold;
+	vertical-align:baseline;
+	text-align:center;
+	vertical-align: middle;
+}
+
+.list_table_button {
+	text-align: center;
+	height: 5px;
+	width: 5px;
+}
+
+.table_headline {
+	height: 10px;
+	font-size: 8px;
+	font-family: Arial;
+	text-align: center;
+	background-color: gray;
+	font-weight: bold;
+}

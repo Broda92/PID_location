@@ -187,6 +187,7 @@ function filter_line(data, vehicles_line, line_map) {
 function filter(data, vehicles_map) {
 	console.log("Vybráno vozidel: "+vehicles_map.length);
 	show_vehicles(map, extent, vehicles_map);
+	vehicles_map_list(vehicles_map);
 }
 
 function find_vehicle() {
@@ -198,7 +199,8 @@ function find_vehicle() {
 }
 
 function zoom_all_vehicles(vehicles_all) {
-	console.log(vehicles_all.getLayers());
-	var v_map = new L.featureGroup(vehicles_all.getLayers());
-	map.fitBounds(v_map.getBounds());
+	if ((vehicles_all.getLayers()).length > 0) {
+		var v_map = new L.featureGroup(vehicles_all.getLayers());
+		map.fitBounds(v_map.getBounds());
+	}	
 }

@@ -138,7 +138,7 @@ function show_vehicles(map, extent, vehicles_map) {
 	        className: 'my-div-icon',
 	        html: '<div style="border: 0.25px solid black; color:gold; background-color: black; height:15px; width:25px; font-weight:bold; vertical-align:baseline; text-align:center;">'+line+'</div>'
 	   		 })
-		} else if (type == "autobus" || type == "náhradní doprava" || type == "smluvní connection" || type == "connection pro lidi s hendikepem" || type == "školní connection") {
+		} else if (type == "autobus" || type == "náhradní doprava" || type == "smluvní spoj" || type == "spoj pro lidi s hendikepem" || type == "školní spoj") {
 			icon = new L.DivIcon({
 	        className: 'my-div-icon',
 	        html: '<div style="border: 0.25px solid black; color:white; background-color: DodgerBlue; height:15px; width:25px; font-weight:bold; vertical-align:baseline; text-align:center;">'+line+'</div>'
