@@ -182,8 +182,7 @@ function show_vehicles(map, extent, vehicles_map) {
 		var vehicle = new customMarker([position_lat, position_lng], {icon: icon, vehicle_number: number});
 		    vehicle.addTo(map)
 		    vehicle.bindPopup(info)
-		    
-			//.on('popupopen', get_data_route(line));
+		    //.on('popupopen', get_data_route(line));
 
 		vehicles.push(vehicle);
 	}		
