@@ -36,77 +36,44 @@ function vehicles_amounts_show(vehicle_type_array, id) {
 	document.getElementById(id).innerHTML = vehicle_type_array.length;
 }
 
-function vehicles_map_list(vehicles_map) {
-	if (document.getElementById("list_table").hasChildNodes()) {
-		document.getElementById("list_table").innerHTML = "";
+function vehicles_map_list(vehicles_map_list) {
+	var table = document.getElementById("list_table");
+	var row;
+	var cell1;
+	var cell2;
+	var cell3;
+	var cell4;
+	var cell5;
+
+	$("#list_table").find("tr:not(:first)").remove();
+
+	if (vehicles_map_list.length == 0) {
+		row = table.insertRow(1);
+		cell1 = row.insertCell(0);
+		cell1.innerHTML = "Není zobrazeno žádné vozidlo!";
+		cell1.setAttribute("colspan", "5");
+		cell1.setAttribute("class", "list_table_no_vehicles");
 	}
-	if (vehicles_map.length == 0) {
-		var no_vehicles_row = document.createElement("tr");
-		var no_vehicles_column = document.createElement("td");
-		var no_vehicles_text = document.createTextNode("Nejsou zobrazena žádná vozidla");
-		no_vehicles_column.appendChild(no_vehicles_text);
-		no_vehicles_column.setAttribute("class","list_table_no_vehicles");
-		no_vehicles_row.appendChild(no_vehicles_column);
-		document.getElementById("list_table").appendChild(no_vehicles_row);
-	} else {
-		var table_vehicles_row = document.createElement("tr");
-		var table_vehicles_column_number = document.createElement("td");
-		var table_vehicles_column_lf = document.createElement("td");
-		var table_vehicles_column_line = document.createElement("td");
-		var table_vehicles_column_destination = document.createElement("td");
-		var table_vehicles_column_delay = document.createElement("td");
 
-		var table_vehicles_column_number_headline = document.createTextNode("#");
-		var table_vehicles_column_lf_headline = document.createTextNode("NP");
-		var table_vehicles_column_line_headline = document.createTextNode("linka");
-		var table_vehicles_column_destination_headline = document.createTextNode("směr");
-		var table_vehicles_column_delay_headline = document.createTextNode("zp.");
-
-		table_vehicles_column_number.appendChild(table_vehicles_column_number_headline);
-		table_vehicles_column_lf.appendChild(table_vehicles_column_lf_headline);
-		table_vehicles_column_line.appendChild(table_vehicles_column_line_headline);
-		table_vehicles_column_destination.appendChild(table_vehicles_column_destination_headline);
-		table_vehicles_column_delay.appendChild(table_vehicles_column_delay_headline);
-
-		table_vehicles_row.appendChild(table_vehicles_column_number);
-		table_vehicles_row.appendChild(table_vehicles_column_lf);
-		table_vehicles_row.appendChild(table_vehicles_column_line);
-		table_vehicles_row.appendChild(table_vehicles_column_destination);
-		table_vehicles_row.appendChild(table_vehicles_column_delay);
-		table_vehicles_row.setAttribute("class","table_headline");
-
-		document.getElementById("list_table").appendChild(table_vehicles_row);
-		
-		for (v in vehicles_map) {
-			table_vehicles_row = document.createElement("tr");
-			table_vehicles_column_number = document.createElement("td");
-			table_vehicles_column_lf = document.createElement("td");
-			table_vehicles_column_line = document.createElement("td");
-			table_vehicles_column_destination = document.createElement("td");
-			table_vehicles_column_delay = document.createElement("td");
-
-			table_vehicles_text_number = document.createTextNode(vehicles_map[v]['properties']['trip']['vehicle_registration_number']);			
-			table_vehicles_text_line = document.createTextNode(vehicles_map[v]['properties']['trip']['gtfs']['route_short_name']);
-			table_vehicles_text_destination = document.createTextNode(vehicles_map[v]['properties']['trip']['gtfs']['trip_headsign']);
-			table_vehicles_text_delay = document.createTextNode(Math.round((vehicles_map[v]['properties']['last_position']['delay']['actual'])/60)+" min");
-			var vehicle_lf;
-			if (vehicles_map[v]['properties']['trip']['wheelchair_accessible'] == true) {
+	for (v = 0; v < vehicles_map_list.length; v++) {
+		row = table.insertRow(1);
+		cell1 = row.insertCell(0);
+		cell2 = row.insertCell(1);
+		cell3 = row.insertCell(2);
+		cell4 = row.insertCell(3);
+		cell5 = row.insertCell(4);
+		cell1.innerHTML = vehicles_map_list[v]['properties']['trip']['vehicle_registration_number'];
+		cell3.innerHTML = vehicles_map_list[v]['properties']['trip']['gtfs']['route_short_name'];
+		cell4.innerHTML = vehicles_map_list[v]['properties']['trip']['gtfs']['trip_headsign'];
+		cell5.innerHTML = Math.round((vehicles_map_list[v]['properties']['last_position']['delay']['actual'])/60)+" min";
+		if (vehicles_map_list[v]['properties']['trip']['wheelchair_accessible'] == true) {
 				vehicle_lf = "ANO";
 			} else {
 				vehicle_lf = "NE";
 			}
-			table_vehicles_text_lf = document.createTextNode(vehicle_lf);
+		cell2.innerHTML = vehicle_lf;
 
-			table_vehicles_column_number.appendChild(table_vehicles_text_number);
-			table_vehicles_column_lf.appendChild(table_vehicles_text_lf);
-			table_vehicles_column_line.appendChild(table_vehicles_text_line);
-			table_vehicles_column_destination.appendChild(table_vehicles_text_destination);
-			table_vehicles_column_delay.appendChild(table_vehicles_text_delay);
-
-			table_vehicles_column_number.setAttribute("class","list_table_number");
-			table_vehicles_column_lf.setAttribute("class","list_table_lf");
-
-			switch (vehicles_map[v]['properties']['trip']['vehicle_type']['description_cs']) {
+		switch (vehicles_map_list[v]['properties']['trip']['vehicle_type']['description_cs']) {
 				case 'tramvaj':
 					table_type = 'tram';
 					break;
@@ -134,16 +101,47 @@ function vehicles_map_list(vehicles_map) {
 					break;
 			}
 
-			table_vehicles_column_line.setAttribute("class", table_type+"_table_line");
-			table_vehicles_column_destination.setAttribute("class","list_table_destination");
-			table_vehicles_column_delay.setAttribute("class","list_table_delay");
+		cell1.setAttribute("class", "list_table_number");
+		cell2.setAttribute("class", "list_table_lf");
+		cell3.setAttribute("class", table_type+"_table_line");
+		cell4.setAttribute("class", "list_table_destination");
+		cell5.setAttribute("class","list_table_delay");
+	}
+}
 
-			table_vehicles_row.appendChild(table_vehicles_column_number);
-			table_vehicles_row.appendChild(table_vehicles_column_lf);
-			table_vehicles_row.appendChild(table_vehicles_column_line);
-			table_vehicles_row.appendChild(table_vehicles_column_destination);
-			table_vehicles_row.appendChild(table_vehicles_column_delay);
-			document.getElementById("list_table").appendChild(table_vehicles_row);
-		}
-	}	
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("list_table");
+  switching = true;
+  dir = "asc";
+  while (switching) {
+    switching = false;
+    rows = table.rows;
+    for (i = 1; i < (rows.length - 1); i++) {
+      shouldSwitch = false;
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          shouldSwitch = true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      switchcount ++;
+    } else {
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
 }

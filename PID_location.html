@@ -11,6 +11,7 @@
    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
    crossorigin=""></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
    <script type="text/javascript">
 
    	function include(file) {
@@ -59,7 +60,15 @@
 
 		<div class="filter_checkbox_line" id="line_list"></div>
 		<div id="list">
-			<table id="list_table"></table>
+			<table id="list_table">
+				<tr>
+					<th onclick="sortTable(0)" class="table_headline">#</th>
+					<th onclick="sortTable(1)" class="table_headline">NP</th>
+					<th onclick="sortTable(2)" class="table_headline">linka</th>
+					<th onclick="sortTable(3)" class="table_headline">směr</th>
+					<th onclick="sortTable(4)" class="table_headline">zpoždění</th>
+				</tr>
+			</table>
 		</div>
 	</div>
 
@@ -74,4 +83,5 @@
 	přepínače vrstev - vypnutí pásem
 	JŘ?
 	seřadit seznam - https://www.w3schools.com/howto/howto_js_sort_table.asp
+	barva linek v seznamu podle trakce
 -->
