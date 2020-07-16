@@ -2,19 +2,21 @@ var routes;
 
 function get_data_route(line){
 	var request4 = new XMLHttpRequest();
-	request4.open('GET','Data/DOP_PID_routes_L.json');
+	request4.open('GET','Data/DOP_PID_TRASY_L.json');
 	request4.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 
 	request4.onreadystatechange = function () {
 	  if (this.readyState === 4) {
 	    routes = JSON.parse(this.responseText);
+	    console.log(routes);
 	  }
 	};
 	request4.send();
 	
 	setTimeout(function(){
 		var route_vehicle = [];
-		for (l in routes['features']) {		
+		if (routes) {
+			for (l in routes['features']) {		
 			if (routes['features'][l]['properties']['L_BUS'] && routes['features'][l]['properties']['L_BUS'].includes(line.toString()) ||
 				routes['features'][l]['properties']['L_BUS_N'] && routes['features'][l]['properties']['L_BUS_N'].includes(line.toString()) ||
 				routes['features'][l]['properties']['L_LAN'] && routes['features'][l]['properties']['L_LAN'].includes(line.toString()) ||
@@ -30,9 +32,11 @@ function get_data_route(line){
 				) {
 				console.log(line);
 				route_vehicle.push(routes['features'][l]['geometry']['coordinates']);
+				}
 			}
+			show_routes(route_vehicle);
 		}
-		show_routes(route_vehicle);
+		
 	}, 5000);
 }
 

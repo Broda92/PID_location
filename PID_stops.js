@@ -1,7 +1,7 @@
 var stops;
 var stops_map = [];
 
-//map.on('zoomend',stops_zoom);// ZABLOKOVÁNO!
+map.on('zoomend',stops_zoom);
 
 function stops_zoom(zoom){
 	var zoom = map.getZoom();
@@ -11,34 +11,19 @@ function stops_zoom(zoom){
 	}
 	
 	if (zoom >= 15 && stops_map.length == 0) {
-		stops = get_data_stops(zoom);
-		setTimeout(function(){
-			show_stops(stops);
-		}, 1000);
-		
+		get_data_stops(stops);		
 	}
 	if (zoom < 15) {
 		stops_map = [];
 	}
 }
 
-function get_data_stops(zoom){
-	var request2 = new XMLHttpRequest();
-	request2.open('GET','Data/PID_GTFS/PID_Stops.json');
-	request2.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-
-	request2.onreadystatechange = function () {
-	  if (this.readyState === 4) {
-	    stops = JSON.parse(this.responseText);
-	    stops = stops['stops'];
-	    console.log(stops.length);
-	  }
-	};
-	request2.send();// - ZABLOKOVÁNO!
-	
-	setTimeout(function(){	
-		return stops;	
-	}, 1000);
+function get_data_stops(stops){
+	$.getJSON("Data/PID_GTFS/PID_Stops.json", function(stops) {	 	
+		stops = stops;
+	 	stops = stops['stops'];
+		show_stops(stops);	
+	});
 }
 
 function show_stops(stops) {
