@@ -1,19 +1,9 @@
 var routes;
 
 function get_data_route(line){
-	var request4 = new XMLHttpRequest();
-	request4.open('GET','Data/DOP_PID_TRASY_L.json');
-	request4.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+	$.getJSON("Data/DOP_PID_TRASY_L.json", function(routes) {	 	
+		routes = routes;
 
-	request4.onreadystatechange = function () {
-	  if (this.readyState === 4) {
-	    routes = JSON.parse(this.responseText);
-	    console.log(routes);
-	  }
-	};
-	request4.send();
-	
-	setTimeout(function(){
 		var route_vehicle = [];
 		if (routes) {
 			for (l in routes['features']) {		
@@ -36,8 +26,7 @@ function get_data_route(line){
 			}
 			show_routes(route_vehicle);
 		}
-		
-	}, 5000);
+	});
 }
 
 function show_routes(route_vehicle) {

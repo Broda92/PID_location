@@ -3,18 +3,8 @@ var zones;
 var zones_colors = ["darkred","red","orangered","darkorange","Orange","gold","yellow","YellowGreen","OliveDrab","Green","DarkGreen"];
 
 function get_data_zones(){
-	var request3 = new XMLHttpRequest();
-	request3.open('GET','Data/DOP_PID_TarifPasma_p_WGS84.geojson');
-	request3.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-
-	request3.onreadystatechange = function () {
-	  if (this.readyState === 4) {
-	    zones = JSON.parse(this.responseText);
-	  }
-	};
-	request3.send();
-
-	setTimeout(function(){
+	$.getJSON("Data/DOP_PID_TarifPasma_p_WGS84.geojson", function(zones) {	 	
+		zones = zones;
 		if (zones) {
 			var prague = zones['features'][0];
 			var zones_from_prague = zones['features'].reverse();
@@ -27,8 +17,7 @@ function get_data_zones(){
 		} else {
 			alert("Data o tarifních pásmech se nepodařilo nahrát!");
 		}
-		
-	}, 1000);
+	});	
 }
 
 function show_zones(p, zones) {

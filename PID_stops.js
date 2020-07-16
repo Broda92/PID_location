@@ -1,7 +1,7 @@
 var stops;
 var stops_map = [];
 
-map.on('zoomend',stops_zoom);
+//map.on('zoomend',stops_zoom);
 
 function stops_zoom(zoom){
 	var zoom = map.getZoom();
@@ -74,6 +74,6 @@ function show_stops(stops) {
 		var stop = new L.marker([position_lat, position_lng], {icon: icon2}).addTo(map)
 		    .bindPopup("<b>"+name+"</b><br>tarifní pásmo <b>"+zone+"</b><br>bezbariérová? <b>"+stop_lf+"</b>");	
 	}	
-	var stops_map = L.layerGroup([stop]);
+	stops_map = L.layerGroup([stop]);
 
 }
