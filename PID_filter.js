@@ -34,10 +34,10 @@ function filter_vehicles(data, lf_boolean) {
 function filter_lf_button() {
 	if (lf_i % 2 == 0) {
 		lf_boolean = true;
-		document.getElementById("lf_button").style = "background-color:red; color:white;";
+		$("#lf_button").css({"background-color":"red", "color":"white"});
 	} else {
 		lf_boolean = false;
-		document.getElementById("lf_button").style = "background-color:WhiteSmoke; color:black;";
+		$("#lf_button").css({"background-color":"WhiteSmoke", "color":"black"});
 	}
 	lf_i++;
 }
@@ -60,17 +60,17 @@ function filter_lf(data, vehicles_lf, lf_boolean) {
 function filter_type_button(type) {
 	line_filter = [];
 	line_boolean = false;
-	document.getElementById("line_button").style = "background-color:WhiteSmoke; color:black;";
+	$("#line_button").css({"background-color":"WhiteSmoke", "color":"black"});
 	if (type_filter.includes(type)) {		
 		for (i in type_filter) {
 			if (type ==  type_filter[i]) {
 				type_filter.splice(i, 1);
-				document.getElementById(type+"_button").style = "background-color:WhiteSmoke; color:black;";
+				$("#"+type+"_button").css({"background-color":"WhiteSmoke", "color":"black"});
 			}
 		}
 	} else {
 		type_filter.push(type);
-		document.getElementById(type+"_button").style = "background-color:red; color:white;";
+		$("#"+type+"_button").css({"background-color":"red", "color":"white"});
 	}
 	return type_filter;
 }
@@ -114,10 +114,10 @@ function filter_line_button() {
 	if (line_i % 2 == 0) {
 		line_boolean = true;
 		type_filter = [];
-		document.getElementById("line_button").style = "background-color:red; color:white;";
+		$("#line_button").css({"background-color":"red", "color":"white"});
 	} else {
 		line_boolean = false;
-		document.getElementById("line_button").style = "background-color:WhiteSmoke; color:black;";
+		$("#line_button").css({"background-color":"WhiteSmoke", "color":"black"});
 	}
 	line_i++;
 }
@@ -130,24 +130,18 @@ function lines_list_on(data, lines_all) {
 	}
 	lines_all.sort();
 
-	document.getElementById("tram_button").style = "background-color:WhiteSmoke; color:black;";
-	document.getElementById("tbus_button").style = "background-color:WhiteSmoke; color:black;";
-	document.getElementById("bus_button").style = "background-color:WhiteSmoke; color:black;";
-	document.getElementById("busreg_button").style = "background-color:WhiteSmoke; color:black;";
-	document.getElementById("train_button").style = "background-color:WhiteSmoke; color:black;";
-	document.getElementById("boat_button").style = "background-color:WhiteSmoke; color:black;";
-	document.getElementById("other_button").style = "background-color:WhiteSmoke; color:black;";
+	$(".filter_checkbox").css({"background-color":"WhiteSmoke", "color":"black"});
 
 	if (document.getElementById("line_list").hasChildNodes() == false) {
 		for (l in lines_all) {
 			(lines_all[l]).toString;
 			var line_button = document.createElement("div");
-			line_button.setAttribute("id","L_"+lines_all[l]);
-			line_button.setAttribute("class","filter_line_button");
-			line_button.setAttribute("onclick","filter_line_button_list('"+lines_all[l]+"')");
+			$(line_button).attr("id","L_"+lines_all[l]);
+			$(line_button).attr("class","filter_line_button");
+			$(line_button).attr("onclick","filter_line_button_list('"+lines_all[l]+"')");
 			var line_text = document.createTextNode(lines_all[l]);
-			line_button.appendChild(line_text);
-			document.getElementById("line_list").appendChild(line_button);
+			$(line_button).append(line_text);
+			$("#line_list").append(line_button);
 		};
 	}	
 	return lines_all;
@@ -156,7 +150,7 @@ function lines_list_on(data, lines_all) {
 function lines_list_off() {
 
 	if (document.getElementById("line_list").hasChildNodes()) {
-		document.getElementById("line_list").innerHTML = "";
+		$("#line_list").html("");
 	}	
 }
 
@@ -165,12 +159,12 @@ function filter_line_button_list(line) {
 		for (i in line_filter) {
 			if (line.toString() == line_filter[i]) {
 				line_filter.splice(i, 1);
-				document.getElementById("L_"+line).style = "background-color:WhiteSmoke; color:black;";
+				$("#L_"+line).css({"background-color":"WhiteSmoke", "color":"black"});
 			}
 		}
 	} else {
 		line_filter.push((line).toString());
-		document.getElementById("L_"+line).style = "background-color:red; color:white;";
+		$("#L_"+line).css({"background-color":"red", "color":"white"});
 	}
 	return line_filter;
 }
@@ -192,7 +186,7 @@ function filter(data, vehicles_map) {
 
 function find_vehicle() {
 	for (v in vehicles_all.getLayers()) {
-		if (vehicles_all.getLayers()[v]['options']['vehicle_number'] == document.getElementById("search_text").value) {
+		if (vehicles_all.getLayers()[v]['options']['vehicle_number'] == $("#search_text").val()) {
 			vehicles_all.getLayers()[v].openPopup();
 		}
 	}

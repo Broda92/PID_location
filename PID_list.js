@@ -33,7 +33,7 @@ function vehicles_amounts(vehicles_map) {
 }
 
 function vehicles_amounts_show(vehicle_type_array, id) {
-	document.getElementById(id).innerHTML = vehicle_type_array.length;
+	$("#"+id+"").html(vehicle_type_array.length);
 }
 
 function vehicles_map_list(vehicles_map_list) {
@@ -50,9 +50,9 @@ function vehicles_map_list(vehicles_map_list) {
 	if (vehicles_map_list.length == 0) {
 		row = table.insertRow(1);
 		cell1 = row.insertCell(0);
-		cell1.innerHTML = "Není zobrazeno žádné vozidlo!";
-		cell1.setAttribute("colspan", "5");
-		cell1.setAttribute("class", "list_table_no_vehicles");
+		$(cell1).html("Není zobrazeno žádné vozidlo!");
+		$(cell1).attr("colspan", "5");
+		$(cell1).attr("class", "list_table_no_vehicles");
 	}
 
 	for (v = 0; v < vehicles_map_list.length; v++) {
@@ -62,16 +62,16 @@ function vehicles_map_list(vehicles_map_list) {
 		cell3 = row.insertCell(2);
 		cell4 = row.insertCell(3);
 		cell5 = row.insertCell(4);
-		cell1.innerHTML = vehicles_map_list[v]['properties']['trip']['vehicle_registration_number'];
-		cell3.innerHTML = vehicles_map_list[v]['properties']['trip']['gtfs']['route_short_name'];
-		cell4.innerHTML = vehicles_map_list[v]['properties']['trip']['gtfs']['trip_headsign'];
-		cell5.innerHTML = Math.round((vehicles_map_list[v]['properties']['last_position']['delay']['actual'])/60)+" min";
+		$(cell1).html(vehicles_map_list[v]['properties']['trip']['vehicle_registration_number']);
+		$(cell3).html(vehicles_map_list[v]['properties']['trip']['gtfs']['route_short_name']);
+		$(cell4).html(vehicles_map_list[v]['properties']['trip']['gtfs']['trip_headsign']);
+		$(cell5).html(Math.round((vehicles_map_list[v]['properties']['last_position']['delay']['actual'])/60)+" min");
 		if (vehicles_map_list[v]['properties']['trip']['wheelchair_accessible'] == true) {
 				vehicle_lf = "ANO";
 			} else {
 				vehicle_lf = "NE";
 			}
-		cell2.innerHTML = vehicle_lf;
+		$(cell2).html(vehicle_lf);
 
 		switch (vehicles_map_list[v]['properties']['trip']['vehicle_type']['description_cs']) {
 				case 'tramvaj':
@@ -101,11 +101,11 @@ function vehicles_map_list(vehicles_map_list) {
 					break;
 			}
 
-		cell1.setAttribute("class", "list_table_number");
-		cell2.setAttribute("class", "list_table_lf");
-		cell3.setAttribute("class", table_type+"_table_line");
-		cell4.setAttribute("class", "list_table_destination");
-		cell5.setAttribute("class","list_table_delay");
+		$(cell1).attr("class", "list_table_number");
+		$(cell2).attr("class", "list_table_lf");
+		$(cell3).attr("class", table_type+"_table_line");
+		$(cell4).attr("class", "list_table_destination");
+		$(cell5).attr("class","list_table_delay");
 	}
 }
 

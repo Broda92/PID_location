@@ -16,9 +16,7 @@ function get_data_vehicles(range){
 
 	var request = new XMLHttpRequest();
 
-	//request.open('GET', 'https://api.golemio.cz/v2/vehiclepositions');	
 	//request.open('GET', link);
-	//request.open('GET', 'https://api.golemio.cz/v2/vehiclepositions/?latlng=50.11548,14.437327&range=300');
 	request.open('GET','Data/PID_poloha_vozidel.json');
 
 	request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
@@ -57,6 +55,15 @@ function get_stop_names() {
 		  }
 		};
 	request.send();
+
+	/*$.getJSON("Data/PID_GTFS/PID_Stops.json", function(stops_names) {	 	
+		stops_names = stops_names;
+	 	stops_names = stops_names['stops'];
+		setTimeout(function(){
+			console.log(stops_names);
+				return stops_names;
+			}, 2000)
+	});*/
 }
 
 function show_vehicles(map, extent, vehicles_map) {		
@@ -193,7 +200,7 @@ function show_vehicles(map, extent, vehicles_map) {
 		setTimeout(function(){
 			limit++;
 			get_data_vehicles();
-		}, 5000);
+		}, 10000);
 	} else {
 		alert('Dosažen limit '+limit+' opakování dotazu!');
 	}
