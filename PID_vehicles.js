@@ -180,7 +180,7 @@ function show_vehicles(map, extent, vehicles_map) {
 		var vehicle = new customMarker([position_lat, position_lng], {icon: icon, vehicle_number: number});
 		    vehicle.addTo(map)
 		    vehicle.bindPopup(info)
-		vehicles.push(vehicle);
+			vehicles.push(vehicle);
 	}		
 	vehicles_all = L.layerGroup(vehicles).addTo(map);
 

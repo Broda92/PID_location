@@ -10,17 +10,19 @@ function get_data_zones(){
 			var zones_from_prague = zones['features'].reverse();
 			zones_from_prague.pop();
 			zones_from_prague.splice(0, 0, prague);		
-
+			var zones_array = [];
 			for (p in zones['features']) {
-				show_zones(p, zones);	
+				show_zones(p, zones, zones_array);	
 			}
+			var zones_group = L.layerGroup(zones_array);
+			L.control.layers().addOverlay(zones_group, "Tarifní pásma").addTo(map);
 		} else {
 			alert("Data o tarifních pásmech se nepodařilo nahrát!");
 		}
 	});	
 }
 
-function show_zones(p, zones) {
+function show_zones(p, zones, zones_array) {
 	if (zones['features'][p]['geometry']['type'] == "MultiPolygon") {
 		for (m in zones['features'][p]['geometry']['coordinates']) {
 			for (c in zones['features'][p]['geometry']['coordinates'][m][0]) {
@@ -41,8 +43,9 @@ function show_zones(p, zones) {
 		  ]
 		];
 
-	var polygon = L.polygon(latlngs, {color: zones_colors[p], weight: 0.5}).addTo(map)
+	var polygon = L.polygon(latlngs, {color: zones_colors[p], weight: 0.5})
 		.bindPopup("<b>Tarifní pásmo "+zones['features'][p]['properties']['POPIS']+"</b>");
+	zones_array.push(polygon);
 }
 
 function zone_coord_reverse(vertex_coord) {
