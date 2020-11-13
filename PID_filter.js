@@ -185,6 +185,14 @@ function filter(data, vehicles_map) {
 	vehicles_map_list(vehicles_map);
 }
 
+var input = document.getElementById("search_text");
+input.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById("search_button").click();
+  }
+});
+
 function find_vehicle() {
 	for (v in vehicles_all.getLayers()) {
 		if (vehicles_all.getLayers()[v]['options']['vehicle_number'] == $("#search_text").val()) {
