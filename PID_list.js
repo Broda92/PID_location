@@ -7,21 +7,25 @@ function vehicles_amounts(vehicles_map) {
 	var boats_map = [];
 	var others_map = [];
 	for (i in vehicles_map) {
-		if (vehicles_map[i]['properties']['trip']['vehicle_type']['description_cs'] == "tramvaj") {
-			trams_map.push(vehicles_map[i]);
-		} else if (vehicles_map[i]['properties']['trip']['vehicle_type']['description_cs'] == "trolejbus") {
-			buses_map.push(vehicles_map[i]);
-		} else if (vehicles_map[i]['properties']['trip']['vehicle_type']['description_cs'] == "autobus") {
-			buses_map.push(vehicles_map[i]);
-		} else if (vehicles_map[i]['properties']['trip']['vehicle_type']['description_cs'] == "regionální autobus") {
-			busreg_map.push(vehicles_map[i]);
-		} else if (vehicles_map[i]['properties']['trip']['vehicle_type']['description_cs'] == "vlak") {
-			trains_map.push(vehicles_map[i]);
-		} else if (vehicles_map[i]['properties']['trip']['vehicle_type']['description_cs'] == "loď") {
-			boats_map.push(vehicles_map[i]);
+		if (vehicles_map[i]['properties']['trip']['vehicle_type'] != null) {
+			if (vehicles_map[i]['properties']['trip']['vehicle_type']['description_cs'] == "tramvaj") {
+				trams_map.push(vehicles_map[i]);
+			} else if (vehicles_map[i]['properties']['trip']['vehicle_type']['description_cs'] == "trolejbus") {
+				buses_map.push(vehicles_map[i]);
+			} else if (vehicles_map[i]['properties']['trip']['vehicle_type']['description_cs'] == "autobus") {
+				buses_map.push(vehicles_map[i]);
+			} else if (vehicles_map[i]['properties']['trip']['vehicle_type']['description_cs'] == "regionální autobus") {
+				busreg_map.push(vehicles_map[i]);
+			} else if (vehicles_map[i]['properties']['trip']['vehicle_type']['description_cs'] == "vlak") {
+				trains_map.push(vehicles_map[i]);
+			} else if (vehicles_map[i]['properties']['trip']['vehicle_type']['description_cs'] == "loď") {
+				boats_map.push(vehicles_map[i]);
+			} else {
+				others_map.push(vehicles_map[i]);
+			}
 		} else {
-			others_map.push(vehicles_map[i]);
-		}
+			vehicles_map.splice(i);
+		}		
 	}	
 	vehicles_amounts_show(trams_map, "tram_amount");
 	vehicles_amounts_show(tbuses_map, "tbus_amount");

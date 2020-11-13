@@ -29,7 +29,19 @@ var stops_names;
 
 setTimeout(function(){
 	stops_names = get_stop_names();
-	get_data_vehicles();
+
+	//repeat request
+	if (limit < 5) {
+		get_data_vehicles();
+		limit++;
+		setInterval(function(){			
+			get_data_vehicles();
+			limit++;
+		}, 10000);
+	} else {
+		alert('Dosažen limit '+limit+' opakování dotazu!');
+	}
+
 	get_data_zones();
 	}, 500)
 

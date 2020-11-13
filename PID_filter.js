@@ -96,14 +96,15 @@ function filter_type(type_filter) {
 		type_map.push("loď");
 	}
 	if (type_filter.includes('other')) {
-		type_map.push("náhradní doprava","ostatní","spoj pro lidi s hendikepem","smluvní spoj");
+		type_map.push("náhradní doprava","ostatní","spoj pro lidi s hendikepem","smluvní spoj", null);
 	}
 	return type_map;
 }
 
 function filter_type2(vehicles_lf, vehicles_type, type_map) {
 	for (i in vehicles_lf) {
-		if (type_map.includes(vehicles_lf[i]['properties']['trip']['vehicle_type']['description_cs'])) {
+		if ((vehicles_lf[i]['properties']['trip']['vehicle_type']) &&
+			type_map.includes(vehicles_lf[i]['properties']['trip']['vehicle_type']['description_cs'])) {
 				vehicles_type.push(vehicles_lf[i]);
 			}
 	}
