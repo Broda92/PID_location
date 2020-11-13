@@ -16,8 +16,8 @@ function get_data_vehicles(range){
 
 	var request = new XMLHttpRequest();
 
-	//request.open('GET', link);
-	request.open('GET','Data/PID_poloha_vozidel.json');
+	request.open('GET', link);
+	//request.open('GET','Data/PID_poloha_vozidel.json');
 
 	request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 	request.setRequestHeader('x-access-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJyb2Rza3kuamFuQHNlem5hbS5jeiIsImlkIjozMTEsIm5hbWUiOm51bGwsInN1cm5hbWUiOm51bGwsImlhdCI6MTU5MjY1MjI5NSwiZXhwIjoxMTU5MjY1MjI5NSwiaXNzIjoiZ29sZW1pbyIsImp0aSI6Ijc4NDM5NzFiLTc4MDctNDVhNy04ZjY2LTVmNjE5Nzk1ZmU5ZCJ9.XKzc8UYMiiwRgkk0iootvnBb66wyVUAzupgapKCXxMg');
@@ -55,15 +55,6 @@ function get_stop_names() {
 		  }
 		};
 	request.send();
-
-	/*$.getJSON("Data/PID_GTFS/PID_Stops.json", function(stops_names) {	 	
-		stops_names = stops_names;
-	 	stops_names = stops_names['stops'];
-		setTimeout(function(){
-			console.log(stops_names);
-				return stops_names;
-			}, 2000)
-	});*/
 }
 
 function show_vehicles(map, extent, vehicles_map) {		
@@ -189,8 +180,6 @@ function show_vehicles(map, extent, vehicles_map) {
 		var vehicle = new customMarker([position_lat, position_lng], {icon: icon, vehicle_number: number});
 		    vehicle.addTo(map)
 		    vehicle.bindPopup(info)
-		    //.on('popupopen', get_data_route(line));
-
 		vehicles.push(vehicle);
 	}		
 	vehicles_all = L.layerGroup(vehicles).addTo(map);
