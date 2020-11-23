@@ -167,7 +167,7 @@ function show_vehicles(map, extent, vehicles_map) {
 		        html: '<div style="border: 0.25px solid black; color:white; background-color: darkred; height:15px; width:40px; font-weight:bold; vertical-align:baseline; text-align:center;">'+line+'</div>'
 		    })
 		}
-		info = ("<b>"+line+" > "+destination.toUpperCase()+"</b><br>"+type+"<br><a href='https://seznam-autobusu.cz/seznam?evc="+number+"&operator="+operator_sa+"'>#"
+		info = ("<b>"+line+" > "+destination.toUpperCase()+"</b><br>"+type+"<br><a href='https://seznam-autobusu.cz/seznam?evc="+number+"&operator="+operator_sa+"' target='_blank'>#"
 			+number+"</a> spoj: "+connection_number+"<br>Zpoždění: "+delay+" min<br>Aktuální zastávka: "+stop_current_name
 			+"<br>dopravce: "+operator+"<br>nízkopodlažní? "+lf).toString();	
 
