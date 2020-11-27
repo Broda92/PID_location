@@ -226,11 +226,33 @@ a {
 	text-align:center;
 	vertical-align: middle;
 }
+.nightbus_table_line {
+	font-family: Arial;
+	font-size: 10px;
+	color: gold;
+	background-color: black;
+	width:25px;
+	font-weight:bold;
+	vertical-align:baseline;
+	text-align:center;
+	vertical-align: middle;
+}
 .busreg_table_line {
 	font-family: Arial;
 	font-size: 10px;
 	color:white;
 	background-color: seagreen;
+	width:25px;
+	font-weight:bold;
+	vertical-align:baseline;
+	text-align:center;
+	vertical-align: middle;
+}
+.nightbusreg_table_line {
+	font-family: Arial;
+	font-size: 10px;
+	color: yellow;
+	background-color: black;
 	width:25px;
 	font-weight:bold;
 	vertical-align:baseline;

@@ -94,6 +94,12 @@ function vehicles_map_list(vehicles_map_list) {
 				case 'regionální autobus':
 					table_type = 'busreg';
 					break;
+				case 'noční regionální autobus':
+					table_type = 'nightbusreg';
+					break;
+				case 'noční autobus':
+					table_type = 'nightbus';
+					break;
 				case 'vlak':
 					table_type = 'train';
 					break;
