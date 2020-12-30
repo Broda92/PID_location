@@ -126,6 +126,11 @@ function show_vehicles(map, extent, vehicles_map) {
 	        className: 'my-div-icon',
 	        html: '<div style="border: 0.25px solid black; color:white; background-color: red; height:15px; width:25px; font-weight:bold; vertical-align:baseline; text-align:center;">'+line+'</div>'
 	   		 })
+		} else if (type == "noční tramvaj") {
+			icon = new L.DivIcon({
+	        className: 'my-div-icon',
+	        html: '<div style="border: 0.25px solid black; color:orange; background-color: black; height:15px; width:25px; font-weight:bold; vertical-align:baseline; text-align:center;">'+line+'</div>'
+	   		 })
 		} else if (type == "trolejbus") {
 			icon = new L.DivIcon({
 	        className: 'my-div-icon',

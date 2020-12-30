@@ -8,13 +8,16 @@ function vehicles_amounts(vehicles_map) {
 	var others_map = [];
 	for (i in vehicles_map) {
 		if (vehicles_map[i]['properties']['trip']['vehicle_type'] != null) {
-			if (vehicles_map[i]['properties']['trip']['vehicle_type']['description_cs'] == "tramvaj") {
+			if ((vehicles_map[i]['properties']['trip']['vehicle_type']['description_cs'] == "tramvaj") ||
+				(vehicles_map[i]['properties']['trip']['vehicle_type']['description_cs'] == "noční tramvaj")) {
 				trams_map.push(vehicles_map[i]);
 			} else if (vehicles_map[i]['properties']['trip']['vehicle_type']['description_cs'] == "trolejbus") {
 				buses_map.push(vehicles_map[i]);
-			} else if (vehicles_map[i]['properties']['trip']['vehicle_type']['description_cs'] == "autobus") {
+			} else if ((vehicles_map[i]['properties']['trip']['vehicle_type']['description_cs'] == "autobus") ||
+				(vehicles_map[i]['properties']['trip']['vehicle_type']['description_cs'] == "noční autobus")) {
 				buses_map.push(vehicles_map[i]);
-			} else if (vehicles_map[i]['properties']['trip']['vehicle_type']['description_cs'] == "regionální autobus") {
+			} else if ((vehicles_map[i]['properties']['trip']['vehicle_type']['description_cs'] == "regionální autobus") ||
+				(vehicles_map[i]['properties']['trip']['vehicle_type']['description_cs'] == "noční regionální autobus")) {
 				busreg_map.push(vehicles_map[i]);
 			} else if (vehicles_map[i]['properties']['trip']['vehicle_type']['description_cs'] == "vlak") {
 				trains_map.push(vehicles_map[i]);
@@ -80,6 +83,9 @@ function vehicles_map_list(vehicles_map_list) {
 		switch (vehicles_map_list[v]['properties']['trip']['vehicle_type']['description_cs']) {
 				case 'tramvaj':
 					table_type = 'tram';
+					break;
+				case 'noční tramvaj':
+					table_type = 'nighttram';
 					break;
 				case 'trolejbus':
 					table_type = 'tbus';

@@ -204,6 +204,17 @@ a {
 	text-align:center;
 	vertical-align: middle;
 }
+.nighttram_table_line {
+	font-family: Arial;
+	font-size: 10px;
+	color:orange;
+	background-color: black;
+	width:25px;
+	font-weight:bold;
+	vertical-align:baseline;
+	text-align:center;
+	vertical-align: middle;
+}
 .tbus_table_line {
 	font-family: Arial;
 	font-size: 10px;
